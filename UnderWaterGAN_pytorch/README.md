@@ -50,34 +50,11 @@ To train a model on your own dataset, you need to create a data folder with two 
   - The results will be saved at `./results/`. Use `--results_dir {directory_path_to_save_result}` to specify the results directory.
 
 ## Network architecture For Cycle A to B
-<img src="./imgs/cycleGAN_scheme_AtoB.png" alt="schemeAtoB"/>
+<img src="./imgs/uw_gan_w.drawio.png" alt="schemeAtoB"/>
 
 ## Citation
 If you use this project for your research, please cite our [paper](https://doi.org/10.1186/s13000-021-01126-y).
-```
-@article{runz2021normalization,
-author = {Runz, Marlen and Rusche, Daniel and Schmidt, Stefan and Weihrauch, Martin and Hesser, Jürgen and Weis, Cleo-Aron},
-title = {Normalization of HE-stained histological images using cycle consistent generative adversarial networks},
-journal = {Diagnostic Pathology},
-year = {2021},
-volume={16},
-pages={71},
-doi = {10.1186/s13000-021-01126-y}
-}
-```
 
-If you use our [datasets](https://doi.org/10.11588/data/8LKEZF), please cite.
-```
-@data{data/8LKEZF_2021,
-author = {Runz, Marlen and Weis, Cleo-Aron},
-publisher = {heiDATA},
-title = {{Normalization of HE-Stained Histological Images using Cycle Consistent Generative Adversarial Networks [Dataset]}},
-year = {2021},
-version = {V1},
-doi = {10.11588/data/8LKEZF},
-url = {https://doi.org/10.11588/data/8LKEZF}
-}
-```
 
 ### ToDo
 - [ ] Add evaluation scripts 

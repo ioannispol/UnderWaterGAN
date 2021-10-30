@@ -1,3 +1,4 @@
+# TODO: Clear any "stain" parts of the code and adjust to underwater
 
 #%% load the background
 from __future__ import print_function, division

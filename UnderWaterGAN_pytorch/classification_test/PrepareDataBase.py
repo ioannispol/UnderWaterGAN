@@ -1,11 +1,12 @@
+# TODO: Clear any "stain" parts of the code and adjust to underwater
 
-#%% prepare the background
+#prepare the background
 import os
 import numpy as np
 import shutil
 import glob
 
-#%% Creating Train / Val / Test folders (One time use)
+#Creating Train / Val / Test folders (One time use)
 dataset = "camelyon"
 if dataset == "camelyon":
     root_dir = '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches'
@@ -29,15 +30,15 @@ class_names =  ['/tumor',
 val_ratio = 0.25
 test_ratio = 0
 
-#%% iterate over it
+#iterate over it
 for ifolder in folders:
 
     for i in range(0, len(classes_dir)):
 
-        #% counter section
+        # counter section
         print('folder ' + classes_dir[i] + ' started')
 
-        #% prepare the directories
+        # prepare the directories
         trainFolder = root_dir + "/" + ifolder + '/train' + class_names[i]
         if os.path.exists(trainFolder):
             shutil.rmtree(trainFolder)
@@ -53,7 +54,7 @@ for ifolder in folders:
             shutil.rmtree(testFolder)
         os.makedirs(root_dir + "/" + ifolder +'/test' + class_names[i])
 
-        #% prepare the data
+        # prepare the data
         # Creating partitions of the data after shuffeling
         src = root_dir + "/" + ifolder + classes_dir[i]  # Folder to copy images from
 
@@ -72,7 +73,7 @@ for ifolder in folders:
         print('Validation: ', len(val_FileNames))
         print('Testing: ', len(test_FileNames))
 
-        #% Copy-pasting images
+        # Copy-pasting images
         for name in train_FileNames:
             shutil.copy(name, root_dir + "/" + ifolder + '/train' + class_names[i])
 
@@ -82,7 +83,7 @@ for ifolder in folders:
         for name in test_FileNames:
             shutil.copy(name, root_dir + "/" + ifolder + '/test' + class_names[i])
 
-        #% counter section
+        # counter section
         print('folder ' + classes_dir[i] + ' finished')
         print('folder ' + class_names[i]+ ' finished')
 

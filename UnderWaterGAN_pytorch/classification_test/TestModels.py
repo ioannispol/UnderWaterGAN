@@ -1,3 +1,4 @@
+# TODO: Clear any "stain" parts of the code and adjust to underwater
 
 #%% load the background
 from __future__ import print_function, division
@@ -10,7 +11,7 @@ import pandas as pd
 import numpy as np
 import torch.nn as nn
 
-#%% define the datasets
+# define the datasets
 list_datasets = ['/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/original',
                 '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_HE',
                 '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_tumorLymphnode_165',
@@ -30,7 +31,7 @@ list_models = ['/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/pat
 
 list_model_names = ['ResNet_original', "ResNet_normalized_to_HE", "ResNet_normalized_to_tumorLymphnode", "ResNet_normalized_to_H"]
 
-#%% iterate over all datasets (and later over all models)
+# iterate over all datasets (and later over all models)
 list_model = []
 list_dataset = []
 list_kappa = []
@@ -40,13 +41,13 @@ list_loss = []
 for idataset, tdataset in enumerate(list_datasets):
     #print(idataset)
 
-    #%% define the folder
+    # define the folder
     if tdataset.find("patches") > 0:
         dataset2use = "val"
     else:
         dataset2use = 'test'
 
-    # %%define the function to get the data
+    # define the function to get the data
     def get_datatransform(inputSize, data_dir):
 
         data_transforms = {
@@ -66,14 +67,14 @@ for idataset, tdataset in enumerate(list_datasets):
 
         return(data_transforms, image_datasets, dataloaders)
 
-    #%% prepare the transformations and the dataset
+    # prepare the transformations and the dataset
     data_transforms , image_datasets, dataloaders= get_datatransform(259, tdataset)
 
     class_names = dataloaders[dataset2use].dataset.classes
     nb_classes = len(class_names)
     confusion_matrix = torch.zeros(nb_classes, nb_classes)
 
-    #%% visualize the input data (to look if evey class is evenly)
+    # visualize the input data (to look if evey class is evenly)
     class_names =  ['normal', 'tumor']
 
     df = pd.DataFrame(dataloaders[dataset2use].dataset.samples)
@@ -163,7 +164,7 @@ for idataset, tdataset in enumerate(list_datasets):
         plt.show()
         plt.close()
 
-#%% make a dataframe
+# make a dataframe
 df = pd.DataFrame(list(zip(list_model, list_dataset, list_kappa)), columns=['model', 'data', 'kappa'])
 df = df.pivot_table(index = ["model"], columns = ["data"], values = "kappa")
 df.to_csv('/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/table.csv')

@@ -1,3 +1,5 @@
+# TODO: Clear any "stain" parts of the code and adjust to underwater
+
 import glob
 import shutil
 from PIL import Image
