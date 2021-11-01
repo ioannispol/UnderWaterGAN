@@ -11,8 +11,8 @@
 
 - Clone this repo:
     ```bash
-    git clone https://github.com/m4ln/stainTransfer_CycleGAN_pytorch.git
-    cd stainTransfer_CycleGAN_pytorch
+    git clone https://github.com/ioannispol/UnderWaterGAN.git
+    cd UnderWaterGAN
     ```
 - Some sample scripts are provided in `./scripts`. Before you can run them the first time, set execute permission via  
 `chmod +x -R ./scripts/`
@@ -63,3 +63,4 @@ If you use this project for your research, please cite our [paper](https://doi.o
 ## Acknowledgments
 The project is forked from [m4ln/stainTransfer_CycleGAN_pytorch: Image-to-Image Translation in PyTorch](https://github.com/m4ln/stainTransfer_CycleGAN_pytorch).
 Only a few parts are modified or added. Please refer to this project for more details on the project files.
+# UnderWaterGAN
