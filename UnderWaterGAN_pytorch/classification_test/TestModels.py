@@ -1,6 +1,6 @@
 # TODO: Clear any "stain" parts of the code and adjust to underwater
 
-#%% load the background
+# load the background
 from __future__ import print_function, division
 import torch
 from torchvision import datasets, transforms
@@ -12,14 +12,8 @@ import numpy as np
 import torch.nn as nn
 
 # define the datasets
-list_datasets = ['/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/original',
-                '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_HE',
-                '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_tumorLymphnode_165',
-                '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_onlyH',
-                '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/tumorLymphnode/patches/size_165/original',
-                 '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/tumorLymphnode/patches/size_165/normalized_to_HE_165',
-                 '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/tumorLymphnode/patches/size_165/normalized_to_camelyon_165',
-                '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/tumorLymphnode/patches/size_165/normalized_to_onlyH_165'
+list_datasets = ['/media/ioannis/DATA/Documents/Machine_learning/Datasets/Official_Project_Dataset/Official_UWDataset',
+                '/media/ioannis/DATA/Documents/Machine_learning/Datasets/Official_Project_Dataset/UWDataset_objects',
                  ]
 list_dataset_names = ['camelyon_ori', 'camelyon_to_HE', 'camelyon_to_tL', 'camelyon_to_H',
                       'tumorLymphnode_ori', 'tumorLymphnode_to_HE', 'tumorLymphnode_to_ca', 'tumorLymphnode_to_H']
@@ -98,7 +92,7 @@ for idataset, tdataset in enumerate(list_datasets):
     n_tumor = sum(map(lambda x: x == "tumor", class_labels))
     print("n = " + str(n_normal) + " tiles without and n = " + str(n_tumor) + " tiles with tumor.")
 
-    #%% iterate over the models
+    # iterate over the models
     from sklearn.metrics import cohen_kappa_score
     from sklearn.metrics import accuracy_score
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -108,11 +102,11 @@ for idataset, tdataset in enumerate(list_datasets):
     for imodel, tmodel in enumerate(list_models):
         print(imodel)
 
-        #%% prepare the dataset
+        # prepare the dataset
         inputSize = 224
         data_transforms, image_datasets, dataloaders = get_datatransform(inputSize, tdataset)
 
-        #%% apply model on test data set (and get a confusion matrix)
+        # apply model on test data set (and get a confusion matrix)
         model_ft = torch.load(tmodel)
         model_ft.eval()
         vector_prd = []
@@ -141,7 +135,7 @@ for idataset, tdataset in enumerate(list_datasets):
         loss_value = loss_function(outputs_matrix.to('cpu'), torch.tensor(vector_exp))
         print(confusion_matrix)
 
-        #%% calcualte the comparison values
+        # calcualte the comparison values
         list_model.append(list_model_names[imodel])
         list_dataset.append(list_dataset_names[idataset])
         list_kappa.append(cohen_kappa_score(vector_prd, vector_exp))
@@ -150,7 +144,7 @@ for idataset, tdataset in enumerate(list_datasets):
         print('Kappa-value: ' + str(list_kappa[-1]))
         print('Accurary-value: ' + str(list_accuracy[-1]))
 
-        #%% plot a confusion matrix
+        # plot a confusion matrix
         matrix2plot = confusion_matrix.numpy()
         matrix2plot = matrix2plot.astype(int)
 

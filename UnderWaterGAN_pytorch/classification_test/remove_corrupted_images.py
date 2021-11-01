@@ -1,11 +1,10 @@
-# TODO: Clear any "stain" parts of the code and adjust to underwater
 
 import glob
 import shutil
 from PIL import Image
 from classification_test.util import assure_path_exists
 
-dir = '/home/cw9/sds_hd/sd18a006/Marlen/datasets/stainNormalization/stainGAN_camelyon16'
+dir = '/media/ioannis/DATA/Documents/Machine_learning/Datasets/Official_Project_Dataset/'
 input_dir = dir + '/**/*.png'
 output_images_dir = dir + '/corrupted/'
 

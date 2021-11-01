@@ -1,6 +1,4 @@
-# TODO: Clear any "stain" parts of the code and adjust to underwater
 
-#%% load the background
 from __future__ import print_function, division
 import torch
 import torch.nn as nn
@@ -13,7 +11,7 @@ import time
 import os
 import copy
 
-#%% load and prepare the dataset
+# load and prepare the dataset
 # Data augmentation and normalization for training
 # Just normalization for validation
 data_transforms = {
@@ -31,16 +29,12 @@ data_transforms = {
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
 }
-dataset2use = "normalized_to_onlyH"
+dataset2use = "Official_UWDataset"
 
-if dataset2use == "original":
-    data_dir = '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/original'
-elif dataset2use == "normalized_to_HE":
-    data_dir = '/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_HE'
-elif dataset2use == "normalized_to_tumorLymphnode_165":
-    data_dir = "/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_tumorLymphnode_165"
-elif dataset2use == "normalized_to_onlyH":
-    data_dir = "/home/cw9/sds_hd/sd18a006/marlen/datasets/stainNormalization/patchCamelyon/patches/normalized_to_onlyH"
+if dataset2use == "Official_UWDataset":
+    data_dir = '/media/ioannis/DATA/Documents/Machine_learning/Datasets/Official_Project_Dataset/Official_UWDataset'
+elif dataset2use == "UWDataset_objects":
+    data_dir = '/media/ioannis/DATA/Documents/Machine_learning/Datasets/Official_Project_Dataset/UWDataset_objects'
 
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
@@ -59,7 +53,7 @@ if torch.cuda.is_available():
 else:
     print('CPU-mode is set')
 
-#%% show the image data
+# show the image data
 # Get a batch of training data
 inputs, classes = next(iter(dataloaders['train']))
 
@@ -69,7 +63,7 @@ from classification_test.visFunctions import imshow
 
 imshow(out, title=[class_names[x] for x in classes])
 
-#%% define the training function
+# define the training function
 # why can't that be done within another file -> not understandable
 def train_model(model, dataloaders, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
@@ -139,7 +133,7 @@ def train_model(model, dataloaders, criterion, optimizer, scheduler, num_epochs=
     model.load_state_dict(best_model_wts)
     return model
 
-#%% define the model loading function
+# define the model loading function
 def load_model(imodel):
     #Load a pretrained model and reset final fully connected layer.
     if imodel == 'ResNet18':
@@ -190,7 +184,7 @@ def load_model(imodel):
 
     return (model2train)
 
-#%% function for preparing the database
+# function for preparing the database
 def prep_database(inputSize):
 
     data_transforms = {
@@ -220,7 +214,7 @@ def prep_database(inputSize):
 
     return(dataloaders, dataset_sizes, class_names)
 
-#%% define function for adapting a pretrained model
+# define function for adapting a pretrained model
 def adapt_model(model_ft, imodel):
     n_classes = 12
 
@@ -259,7 +253,7 @@ def adapt_model(model_ft, imodel):
 
     return(model_ft)
 
-#%% define a list of models
+# define a list of models
 model_list = ['alex',
               'ResNet18', 'ResNet34', 'ResNet50', 'ResNet101', 'ResNet152',
               'vgg11', 'vgg16', 'vgg19',
@@ -269,10 +263,10 @@ model_list = ['ResNet152'] # scheinbar ein Problem mit den densenets ab 161?
 
 #save_path = data_dir + '/trainedModels'
 
-#%% iterate over the model list
+# iterate over the model list
 for imodel in model_list:
 
-    #%% # Data augmentation and normalization for training
+    # Data augmentation and normalization for training
     # Just normalization for validation
     if imodel == 'inception':
         inputSize = 299
@@ -281,7 +275,7 @@ for imodel in model_list:
 
     (dataloaders, dataset_sizes, class_names) = prep_database(inputSize)
 
-    #%% load the model
+    # load the model
     model2train = load_model(imodel)
     print(model2train.modName)
 
@@ -290,7 +284,7 @@ for imodel in model_list:
     model_ft = adapt_model(model_ft, imodel)
     model_ft = model_ft.to('cuda')
 
-    #%% set the training parameter
+    # set the training parameter
     criterion = nn.CrossEntropyLoss()
 
     # Observe that all parameters are being optimized
@@ -299,12 +293,12 @@ for imodel in model_list:
     # Decay LR by a factor of 0.1 every 7 epochs
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
-    #%% train the model
+    # train the model
     model_ft = model_ft.to(device)
     model_ft = train_model(model_ft, dataloaders, criterion, optimizer_ft, exp_lr_scheduler,
                             num_epochs=50)
 
-    #% save the model
+    # save the model
     torch.save(model_ft, data_dir+ '/model_' + imodel + '.pt')
 
 
