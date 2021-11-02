@@ -53,12 +53,13 @@ To train a model on your own dataset, you need to create a data folder with two 
 <img src="UnderWaterGAN_pytorch/imgs/uw_gan_w.drawio.png" alt="schemeAtoB"/>
 
 ## Citation
-If you use this project for your research, please cite our [paper](https://doi.org/10.1186/s13000-021-01126-y).
+If you use this project for your research, please cite our [paper].
 
 
 ### ToDo
 - [ ] Add evaluation scripts 
 - [ ] Make evaluation scripts for FID and SSIM-py 
+- [ ] Paper TBR
 
 ## Acknowledgments
 The project is forked from [m4ln/stainTransfer_CycleGAN_pytorch: Image-to-Image Translation in PyTorch](https://github.com/m4ln/stainTransfer_CycleGAN_pytorch).
