@@ -1,23 +1,9 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim-buster
+FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+COPY ./requirements.txt /install/requirements.txt
+RUN pip install -r /install/requirements.txt
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
+WORKDIR /code
+COPY ./UnderWaterGAN_pytorch/ /code/UnderWaterGAN_pytorch
 
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
-
-WORKDIR /app
-COPY . /app
-
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
-
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "UnderWaterGAN_pytorch/train.py"]
+CMD [  "/bin/bash" ]
