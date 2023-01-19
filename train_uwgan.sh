@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "UnderWaterCycleGAN model training script"
+
 nvidia-smi
 
 
