@@ -1,0 +1,31 @@
+# ARG UBUNTU_VERSION=20.04
+# ARG CUDA=11.2
+# FROM nvidia/cuda:${CUDA}.1-base-ubuntu${UBUNTU_VERSION} AS base
+
+# # Use Ubuntu 20.04 as the base image
+# FROM ubuntu:20.04
+
+# # Update the package repository
+# RUN apt-get update
+
+# # Install required packages
+# RUN apt-get install -y \
+#     python3-pip \
+#     build-essential \
+#     libopenblas-dev \
+#     python3-dev
+
+# # Upgrade pip
+# RUN pip3 install --upgrade pip
+
+# # Install PyTorch
+# RUN pip3 install torch torchvision
+
+# # Set the working directory
+# WORKDIR /app
+
+# # Copy the application code
+# COPY . .
+
+# # Run the command to start the application
+# CMD ["python3", "main.py"]
