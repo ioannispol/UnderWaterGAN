@@ -22,4 +22,3 @@ python train.py --gpu_ids 1 \
 
 
 
-echo "UnderWaterCycleGAN model training ened"
