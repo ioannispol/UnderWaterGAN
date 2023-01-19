@@ -6,4 +6,6 @@ RUN pip install -r /install/requirements.txt
 WORKDIR /code
 COPY ./UnderWaterGAN_pytorch/ /code/UnderWaterGAN_pytorch
 
+EXPOSE 8888
+
 CMD [  "/bin/bash" ]
