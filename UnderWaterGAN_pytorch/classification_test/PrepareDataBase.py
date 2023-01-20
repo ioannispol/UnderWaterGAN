@@ -87,4 +87,3 @@ for ifolder in folders:
         print('folder ' + classes_dir[i] + ' finished')
         print('folder ' + class_names[i]+ ' finished')
 
-

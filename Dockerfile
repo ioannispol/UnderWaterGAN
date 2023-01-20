@@ -5,6 +5,7 @@ RUN pip install -r /install/requirements.txt
 
 WORKDIR /code
 COPY ./UnderWaterGAN_pytorch/ /code/UnderWaterGAN_pytorch
+COPY ./train_uwgan.sh /code/train_uwgan.sh
 
 EXPOSE 8888
 
