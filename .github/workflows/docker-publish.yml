@@ -19,13 +19,8 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-<<<<<<< HEAD
-  IMAGE_NAME: ${{ github.repository }}
-  #IMAGE_NAME: underwatergan
-=======
   #IMAGE_NAME: ${{ github.repository }}
   IMAGE_NAME: ioannispol/underwatergan
->>>>>>> a8bcdf0 (update - 20012023-sk)
 
 
 jobs:
